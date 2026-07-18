@@ -5,7 +5,7 @@ public class Account {
     private String username;
     private String password;
     private String role;
-    private int status;
+    private boolean status;
     private Integer userId;
     public Account(){};
     public int getId(){
@@ -32,10 +32,10 @@ public class Account {
     public void setRole(String role) {
         this.role = role;
     }
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
     public Integer getUserId() {

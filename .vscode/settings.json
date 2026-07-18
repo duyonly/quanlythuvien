@@ -1,4 +1,9 @@
 {
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": ["quanlythuvien", "springframework", "thuvien"]
+  "cSpell.words": [
+    "quanlythuvien",
+    "springframework",
+    "thuvien"
+  ],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

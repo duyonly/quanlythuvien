@@ -4,854 +4,468 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hệ Thống Quản Lý Thư Viện</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    
+    <!-- SIDEBAR MENU -->
     <div class="sidebar">
-      <div class="px-4 mb-4 text-center">
-        <h4 class="fw-bold text-white mb-1">
+      <div class="sidebar-header">
+        <h4 class="brand-title">
           <i class="fa-solid fa-book-open text-info me-2"></i>SGU Library
         </h4>
-        <span class="small">Hệ Thống Quản Lý Thư Viện</span>
+        <span class="brand-subtitle">Hệ Thống Quản Lý Thư Viện</span>
       </div>
-      <hr class="border-secondary mx-3" />
-      <nav class="nav flex-column">
+      <hr class="sidebar-divider" />
+      <nav class="sidebar-nav">
         <a class="nav-link active" href="#" id="menu-books">
-          <i class="fa-solid fa-book fs-5"></i> Quản Lý Sách
+          <i class="fa-solid fa-book"></i> Quản Lý Sách
         </a>
         <a class="nav-link" href="#" id="menu-categories">
-          <i class="fa-solid fa-tags fs-5"></i> Quản Lý Thể Loại
+          <i class="fa-solid fa-tags"></i> Quản Lý Thể Loại
         </a>
         <a class="nav-link" href="#" id="menu-users">
-          <i class="fa-solid fa-users fs-5"></i> Quản Lý Người Dùng
+          <i class="fa-solid fa-users"></i> Quản Lý Người Dùng
         </a>
         <a class="nav-link" href="#" id="menu-borrows">
-          <i class="fa-solid fa-handshake fs-5"></i> Quản Lý Mượn Trả
+          <i class="fa-solid fa-handshake"></i> Quản Lý Mượn Trả
         </a>
-        <hr class="border-secondary mx-3" />
+        <hr class="sidebar-divider" />
         <a class="nav-link" href="#" id="menu-profile">
-          <i class="fa-solid fa-user fs-5"></i>
-          Tài Khoản
-      </a>
-        <a class="nav-link text-danger"  id="btn-logout">
-          <i class="fa-solid fa-right-from-bracket fs-5"></i>
-          Đăng Xuất
+          <i class="fa-solid fa-user"></i> Tài Khoản
+        </a>
+        <a class="nav-link text-danger" href="#" id="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i> Đăng Xuất
         </a>
       </nav>
-      <div id="logout-modal" class="modal">
-        <div class="modal-content">
-            <h3>Xác nhận đăng xuất</h3>
-    
+
+      <!-- MODAL ĐĂNG XUẤT -->
+      <div id="logout-modal" class="custom-modal">
+        <div class="custom-modal-content">
+            <h4>Xác nhận đăng xuất</h4>
             <p>Bạn có chắc chắn muốn đăng xuất không?</p>
-    
             <div class="modal-buttons">
-                <button id="btn-cancel">Hủy</button>
-                <button id="btn-confirm">Đăng xuất</button>
+                <button id="btn-cancel" class="btn btn-light">Hủy</button>
+                <button id="btn-confirm" class="btn btn-danger">Đăng xuất</button>
             </div>
         </div>
-    </div>
+      </div>
     </div>
 
+    <!-- MAIN CONTENT CONTAINER -->
     <div class="main-content">
+      
+      <!-- PANEL: QUẢN LÝ SÁCH -->
       <div id="panel-books" class="page-panel active">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="panel-header">
           <div>
-            <h2 class="fw-bold page-title m-0">📚 Quản Lý Kho Sách</h2>
-            <p class="m-0" id="mute">
-             Quản lý các loại sách trong kho của thư viện
-            </p>
+            <h2 class="page-title">📚 Quản Lý Kho Sách</h2>
+            <p class="page-subtitle" id="mute-text">Quản lý các loại sách trong kho của thư viện</p>
           </div>
-          <button
-            class="btn btn-primary px-4 fw-semibold"
-            id="btn-refresh-books"
-          >
-            <i class="fa-solid fa-rotate me-2"></i> Làm Mới Dữ Liệu
+          <button class="btn btn-primary" id="btn-refresh-books">
+            <i class="fa-solid fa-rotate"></i> Làm Mới Dữ Liệu
           </button>
         </div>
-        <div class="btn-thongke" id="statistics-section">
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div
-              class="card border-0 shadow-sm bg-primary-subtle text-primary h-100"
-            >
-              <div
-                class="card-body d-flex align-items-center justify-content-between p-4"
-              >
-                <div>
-                  <h6
-                    class="text-uppercase fw-bold small text-primary-emphasis mb-2"
-                  >
-                    Tổng số sách
-                  </h6>
-                  <h2 class="display-6 fw-bold mb-0" id="lbl-tong-sach">0</h2>
-                </div>
-                <div class="fs-1 opacity-75">
-                  <i class="fa-solid fa-book-bookmark"></i>
-                </div>
-              </div>
+        
+        <!-- Thống kê tổng quan -->
+        <div class="stats-grid" id="statistics-section">
+          <div class="stat-card bg-primary-subtle">
+            <div class="stat-info">
+              <h6>Tổng số sách</h6>
+              <h2 id="lbl-tong-sach">0</h2>
             </div>
+            <div class="stat-icon text-primary"><i class="fa-solid fa-book-bookmark"></i></div>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div
-              class="card border-0 shadow-sm bg-warning-subtle text-warning-emphasis h-100"
-            >
-              <div
-                class="card-body d-flex align-items-center justify-content-between p-4"
-              >
-                <div>
-                  <h6 class="text-uppercase fw-bold small mb-2">
-                    Sách đang mượn
-                  </h6>
-                  <h2 class="display-6 fw-bold mb-0" id="lbl-dang-muon">0</h2>
-                </div>
-                <div class="fs-1 opacity-75">
-                  <i class="fa-solid fa-hand-holding-hand"></i>
-                </div>
-              </div>
+          <div class="stat-card bg-warning-subtle">
+            <div class="stat-info">
+              <h6>Sách đang mượn</h6>
+              <h2 id="lbl-dang-muon">0</h2>
             </div>
+            <div class="stat-icon text-warning"><i class="fa-solid fa-hand-holding-hand"></i></div>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div
-              class="card border-0 shadow-sm bg-danger-subtle text-danger h-100"
-            >
-              <div
-                class="card-body d-flex align-items-center justify-content-between p-4"
-              >
-                <div>
-                  <h6
-                    class="text-uppercase fw-bold small text-danger-emphasis mb-2"
-                  >
-                    Tiền phạt tích lũy
-                  </h6>
-                  <h2 class="display-6 fw-bold mb-0" id="lbl-tien-phat">0 ₫</h2>
-                </div>
-                <div class="fs-1 opacity-75">
-                  <i class="fa-solid fa-circle-dollar-to-slot"></i>
-                </div>
-              </div>
+          <div class="stat-card bg-danger-subtle">
+            <div class="stat-info">
+              <h6>Tiền phạt tích lũy</h6>
+              <h2 id="lbl-tien-phat">0 ₫</h2>
             </div>
+            <div class="stat-icon text-danger"><i class="fa-solid fa-circle-dollar-to-slot"></i></div>
           </div>
-
-          <div class="col-12 col-sm-6 col-xl-3">
-            <div
-              class="card border-0 shadow-sm bg-success-subtle text-success h-100"
-            >
-              <div
-                class="card-body d-flex align-items-center justify-content-between p-4"
-              >
-                <div>
-                  <h6
-                    class="text-uppercase fw-bold small text-success-emphasis mb-2"
-                  >
-                    Tổng số độc giả
-                  </h6>
-                  <h2 class="display-6 fw-bold mb-0" id="lbl-doc-gia">0</h2>
-                </div>
-                <div class="fs-1 opacity-75">
-                  <i class="fa-solid fa-users"></i>
-                </div>
-              </div>
+          <div class="stat-card bg-success-subtle">
+            <div class="stat-info">
+              <h6>Tổng số độc giả</h6>
+              <h2 id="lbl-doc-gia">0</h2>
             </div>
+            <div class="stat-icon text-success"><i class="fa-solid fa-users"></i></div>
           </div>
         </div>
-        <div class="row" >
-          <div class="col-xl-4 mb-4" id="book-form-col">
-            <div class="card-table" id="add-book-section">
-              <h5 class="fw-bold text-dark mb-4">
-                <i class="fa-solid fa-circle-plus text-success me-2" ></i>Thêm
-                Sách Mới
-              </h5>
-              <form id="form-add-book">
-                <input type="hidden" id="book-id" />
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Tên Sách</label
-                  >
-                  <input
-                    type="text"
-                    id="book-title"
-                    class="form-control"
-                    placeholder="Ví dụ: Lập trình Java căn bản"
-                    required
-                  />
+
+        <div class="content-layout">
+          <div class="form-container" id="add-book-section">
+            <h5 class="form-title">
+              <i class="fa-solid fa-circle-plus text-success"></i> Thêm Sách Mới
+            </h5>
+            <form id="form-add-book">
+              <input type="hidden" id="book-id" />
+              <div class="form-group">
+                <label>Tên Sách</label>
+                <input type="text" id="book-title" placeholder="Ví dụ: Lập trình Java căn bản" required />
+              </div>
+              <div class="form-group">
+                <label>Tác Giả</label>
+                <input type="text" id="book-author" placeholder="Ví dụ: Nguyễn Văn A" required />
+              </div>
+              <div class="form-group">
+                <label>Mã Số Quốc Tế (ISBN)</label>
+                <input type="text" id="book-isbn" placeholder="Ví dụ: ISBN-9921" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Số Lượng Tổng</label>
+                  <input type="number" id="book-quantity" min="1" value="1" required />
                 </div>
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Tác Giả</label
-                  >
-                  <input
-                    type="text"
-                    id="book-author"
-                    class="form-control"
-                    placeholder="Ví dụ: Nguyễn Văn A"
-                    required
-                  />
+                <div class="form-group">
+                  <label>Thể Loại</label>
+                  <select id="book-cat-id" required>
+                    <option value="" disabled selected>-- Chọn thể loại --</option>
+                  </select>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Mã Số Quốc Tế (ISBN)</label
-                  >
-                  <input
-                    type="text"
-                    id="book-isbn"
-                    class="form-control"
-                    placeholder="Ví dụ: ISBN-9921"
-                    required
-                  />
-                </div>
-                <div class="row">
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Số Lượng Tổng</label
-                    >
-                    <input
-                      type="number"
-                      id="book-quantity"
-                      class="form-control"
-                      min="1"
-                      value="1"
-                      required
-                    />
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Mã Thể Loại (ID)</label
-                    >
-                    <input
-                      type="number"
-                      id="book-cat-id"
-                      class="form-control"
-                      min="1"
-                      placeholder="Số ID"
-                      required
-                    />
-                  </div>
-                </div>
-                <div id="form-action-buttons">
-                  <button
-                    type="submit"
-                    class="btn btn-success w-100 fw-bold py-2 mt-2"
-                    id="btn-submit-form"
-                  >
-                    <i class="fa-solid fa-cloud-arrow-up me-2"></i>Lưu Vào Cơ Sở
-                    Dữ Liệu
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div id="form-action-buttons">
+                <button type="submit" class="btn btn-success w-100" id="btn-submit-form">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Lưu Vào Cơ Sở Dữ Liệu
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="col-xl-8 mb-4" id="book-table-col">
-            <div class="card-table">
-              <div
-                class="d-flex justify-content-between align-items-center mb-4"
-              >
-                <h5 class="fw-bold text-dark m-0">
-                  <i class="fa-solid fa-list text-primary me-2"></i>
-                  Danh Sách Sách Trong Kho
-                </h5>
-
-                <div class="input-group" style="width: 350px">
-                  <span class="input-group-text">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                  </span>
-                  <input
-                    type="text"
-                    id="searchBook"
-                    class="form-control"
-                    placeholder="Tìm theo tên sách, tác giả, ISBN..."
-                  />
-                </div>
+          <div class="table-container" id="book-table-col">
+            <div class="table-header">
+              <h5 class="table-title">
+                <i class="fa-solid fa-list text-primary"></i> Danh Sách Sách Trong Kho
+              </h5>
+              <div class="search-box">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="searchBook" placeholder="Tìm theo tên, tác giả, ISBN..." />
               </div>
-              <div class="table-responsive">
-                <table class="table table-hover align-middle m-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center" style="width: 60px">ID</th>
-                      <th>Thông Tin Sách</th>
-                      <th>Mã ISBN</th>
-                      <th class="text-center">Số Lượng</th>
-                      <th class="text-center">Sẵn Có</th>
-                      <th class="text-center">Thể Loại ID</th>
-                      <th
-                        class="text-center"
-                        id="action-header"
-                        style="width: 120px"
-                      >
-                        Hành động
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-book-body">
-                    <tr>
-                      <td colspan="6" class="text-center py-4 text-muted">
-                        Đang tải danh sách sách...
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            </div>
+            <div class="responsive-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 60px; text-align: center;">ID</th>
+                    <th>Thông Tin Sách</th>
+                    <th>Mã ISBN</th>
+                    <th style="text-align: center;">Số Lượng</th>
+                    <th style="text-align: center;">Sẵn Có</th>
+                    <th style="text-align: center;">Thể Loại ID</th>
+                    <th id="action-header" style="width: 120px; text-align: center;">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="table-book-body">
+                  <tr>
+                    <td colspan="7" class="text-center text-muted">Đang tải danh sách sách...</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- PANEL: QUẢN LÝ THỂ LOẠI -->
       <div id="panel-categories" class="page-panel">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="panel-header">
           <div>
-            <h2 class="fw-bold page-title m-0">🏷️ Phân Loại Thể Loại</h2>
-            <p class="m-0" id="mute">
-              Quản lý các danh mục sách thuộc thư viện
-            </p>
+            <h2 class="page-title">🏷️ Phân Loại Thể Loại</h2>
+            <p class="page-subtitle">Quản lý các danh mục sách thuộc thư viện</p>
           </div>
-          <button
-            class="btn btn-info text-white px-4 fw-semibold"
-            id="btn-refresh-categories"
-          >
-            <i class="fa-solid fa-rotate me-2"></i> Làm Mới Dữ Liệu
+          <button class="btn btn-info" id="btn-refresh-categories">
+            <i class="fa-solid fa-rotate"></i> Làm Mới Dữ Liệu
           </button>
         </div>
 
-        <div class="row">
-          <div class="col-md-4" id="category-form-col">
-            <div class="card shadow-sm border-0">
-              <div class="card-body" id="add-category-section">
-                <h5 class="card-title fw-bold text-primary mb-3">
-                  <i class="fa-solid fa-tags me-2"></i>Thông Tin Thể Loại
-                </h5>
-
-                <form id="form-add-category" >
-                  <input type="hidden" id="category-id" />
-                  <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Tên Thể Loại</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control shadow-none"
-                      id="category-name"
-                      required
-                      placeholder="Ví dụ: Công nghệ thông tin"
-                    />
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Mô Tả Chi Tiết</label
-                    >
-                    <textarea
-                      class="form-control shadow-none"
-                      id="category-desc"
-                      rows="3"
-                      placeholder="Mô tả ngắn về thể loại sách này..."
-                    ></textarea>
-                  </div>
-
-                  <div id="category-form-buttons">
-                    <button
-                      type="submit"
-                      class="btn btn-primary w-100 fw-bold py-2"
-                      id="btn-submit-cat"
-                    >
-                      <i class="fa-solid fa-plus me-2"></i>Thêm Thể Loại
-                    </button>
-                  </div>
-                </form>
+        <div class="content-layout">
+          <div class="form-container" id="add-category-section">
+            <h5 class="form-title text-primary">
+              <i class="fa-solid fa-tags"></i> Thông Tin Thể Loại
+            </h5>
+            <form id="form-add-category">
+              <input type="hidden" id="category-id" />
+              <div class="form-group">
+                <label>Tên Thể Loại</label>
+                <input type="text" id="category-name" required placeholder="Ví dụ: Công nghệ thông tin" />
               </div>
-            </div>
+              <div class="form-group">
+                <label>Mô Tả Chi Tiết</label>
+                <textarea id="category-desc" rows="3" placeholder="Mô tả ngắn về thể loại sách này..."></textarea>
+              </div>
+              <div id="category-form-buttons">
+                <button type="submit" class="btn btn-primary w-100" id="btn-submit-cat">
+                  <i class="fa-solid fa-plus"></i> Thêm Thể Loại
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="col-md-8" id="category-table-col">
-            <div class="card shadow-sm border-0">
-              <div class="card-body" >
-                <div
-                  class="d-flex justify-content-between align-items-center mb-3"
-                >
-                  <h5 class="card-title fw-bold text-dark mb-0">
-                    Danh Mục Thể Loại Kho
-                  </h5>
-                  <div class="input-group mb-3" style="width: 350px">
-                    <span class="input-group-text">
-                      <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input
-                      type="text"
-                      id="searchCategory"
-                      class="form-control"
-                      placeholder="Tìm thể loại..."
-                    />
-                  </div>
-                </div>
-                <div class="table-responsive">
-                  <table class="table table-hover align-middle border">
-                    <thead class="table-light">
-                      <tr>
-                        <th class="text-center" style="width: 80px">Mã ID</th>
-                        <th>Tên Thể Loại</th>
-                        <th>Mô Tả</th>
-                        <th
-                          class="text-center"
-                          id="category-action-header"
-                          style="width: 120px"
-                        >
-                          Hành động
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody id="table-category-body"></tbody>
-                  </table>
-                </div>
+          <div class="table-container" id="category-table-col">
+            <div class="table-header">
+              <h5 class="table-title">Danh Mục Thể Loại Kho</h5>
+              <div class="search-box">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="searchCategory" placeholder="Tìm thể loại..." />
               </div>
+            </div>
+            <div class="responsive-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 80px; text-align: center;">Mã ID</th>
+                    <th>Tên Thể Loại</th>
+                    <th>Mô Tả</th>
+                    <th id="category-action-header" style="width: 120px; text-align: center;">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="table-category-body"></tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- PANEL: QUẢN LÝ NGƯỜI DÙNG -->
       <div id="panel-users" class="page-panel">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="panel-header">
           <div>
-            <h2 class="fw-bold page-title m-0">👥 Quản Lý Tài Khoản</h2>
-            <p class="m-0" id="mute">
-              Xem, tạo mới, chỉnh sửa thông tin thành viên và phân quyền
-            </p>
+            <h2 class="page-title">👥 Quản Lý Tài Khoản</h2>
+            <p class="page-subtitle">Xem, tạo mới, chỉnh sửa thông tin thành viên và phân quyền</p>
           </div>
-          <button
-            class="btn btn-warning text-white px-4 fw-semibold"
-            id="btn-refresh-users"
-          >
-            <i class="fa-solid fa-rotate me-2"></i> Làm Mới Dữ Liệu
+          <button class="btn btn-warning" id="btn-refresh-users">
+            <i class="fa-solid fa-rotate"></i> Làm Mới Dữ Liệu
           </button>
         </div>
 
-        <div class="row">
-          <div class="col-xl-4 mb-4">
-            <div class="card-table">
-              <h5 class="fw-bold text-dark mb-4" id="user-form-title">
-                <i class="fa-solid fa-user-plus text-success me-2"></i>Thêm Tài
-                Khoản Mới
-              </h5>
-              <form id="form-add-user">
-                <input type="hidden" id="user-id" />
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Tài khoản (Username)</label
-                  >
-                  <input
-                    type="text"
-                    id="user-username"
-                    class="form-control"
-                    placeholder="Ví dụ: nva_thuvien"
-                    required
-                  />
+        <div class="content-layout">
+          <div class="form-container">
+            <h5 class="form-title" id="user-form-title">
+              <i class="fa-solid fa-user-plus text-success"></i> Thêm Tài Khoản Mới
+            </h5>
+            <form id="form-add-user">
+              <input type="hidden" id="user-id" />
+              <div class="form-group">
+                <label>Tài khoản (Username)</label>
+                <input type="text" id="user-username" placeholder="Ví dụ: nva_thuvien" required />
+              </div>
+              <div class="form-group">
+                <label>Mật Khẩu</label>
+                <input type="password" id="user-password" placeholder="Nhập mật khẩu" required />
+              </div>
+              <div class="form-group">
+                <label>Họ và Tên</label>
+                <input type="text" id="user-fullname" placeholder="Ví dụ: Nguyễn Văn A" required />
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="user-email" placeholder="Ví dụ: nva@gmail.com" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Vai Trò (Role)</label>
+                  <select id="user-role">
+                    <option value="MEMBER">MEMBER</option>
+                    <option value="LIBRARIAN">LIBRARIAN</option>
+                    <option value="ADMIN">ADMIN</option>
+                  </select>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Mật Khẩu</label
-                  >
-                  <input
-                    type="password"
-                    id="user-password"
-                    class="form-control"
-                    placeholder="Nhập mật khẩu"
-                    required
-                  />
+                <div class="form-group">
+                  <label>Trạng Thái</label>
+                  <select id="user-status">
+                    <option value="1">Kích Hoạt</option>
+                    <option value="0">Khóa</option>
+                  </select>
                 </div>
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Họ và Tên</label
-                  >
-                  <input
-                    type="text"
-                    id="user-fullname"
-                    class="form-control"
-                    placeholder="Ví dụ: Nguyễn Văn A"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Email</label
-                  >
-                  <input
-                    type="email"
-                    id="user-email"
-                    class="form-control"
-                    placeholder="Ví dụ: nva@gmail.com"
-                    required
-                  />
-                </div>
-                <div class="row">
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Vai Trò (Role)</label
-                    >
-                    <select id="user-role" class="form-select">
-                      <option value="MEMBER">MEMBER</option>
-                      <option value="LIBRARIAN">LIBRARIAN</option>
-                      <option value="ADMIN">ADMIN</option>
-                    </select>
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Trạng Thái</label
-                    >
-                    <select id="user-status" class="form-select">
-                      <option value="1">Kích Hoạt</option>
-                      <option value="0">Khóa</option>
-                    </select>
-                  </div>
-                </div>
-                <div id="user-form-buttons" class="d-flex gap-2">
-                  <button
-                    type="submit"
-                    class="btn btn-success flex-grow-1 fw-bold py-2 mt-2"
-                    id="btn-submit-user"
-                  >
-                    <i class="fa-solid fa-cloud-arrow-up me-2"></i>Lưu Dữ Liệu
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary py-2 mt-2 d-none"
-                    id="btn-cancel-user"
-                  >
-                    Hủy
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div id="user-form-buttons">
+                <button type="submit" class="btn btn-success w-100" id="btn-submit-user">
+                  <i class="fa-solid fa-cloud-arrow-up"></i> Lưu Dữ Liệu
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="col-xl-8 mb-4">
-            <div class="card-table">
-              <h5 class="fw-bold text-dark mb-4">
-                <i class="fa-solid fa-users-list text-primary me-2"></i>Danh
-                Sách Tài Khoản Hệ Thống
-              </h5>
-              <div class="input-group mb-3" style="width: 350px">
-                <span class="input-group-text">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input
-                  type="text"
-                  id="searchUser"
-                  class="form-control"
-                  placeholder="Tìm username, họ tên, email..."
-                />
+          <div class="table-container">
+            <div class="table-header">
+              <h5 class="table-title"><i class="fa-solid fa-users text-primary"></i> Tài Khoản Hệ Thống</h5>
+              <div class="search-box">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="searchUser" placeholder="Tìm username, họ tên, email..." />
               </div>
-              <div class="table-responsive">
-                <table class="table table-hover align-middle m-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center" style="width: 60px">ID</th>
-                      <th>Tài Khoản</th>
-                      <th>Họ Và Tên</th>
-                      <th>Email</th>
-                      <th class="text-center">Quyền</th>
-                      <th class="text-center">Trạng Thái</th>
-                      <th class="text-center" style="width: 140px">
-                        Hành động
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-user-body">
-                    <tr>
-                      <td colspan="7" class="text-center py-4 text-muted">
-                        Đang tải danh sách tài khoản...
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            </div>
+            <div class="responsive-table">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 60px; text-align: center;">ID</th>
+                    <th>Tài Khoản</th>
+                    <th>Họ Và Tên</th>
+                    <th>Email</th>
+                    <th style="text-align: center;">Quyền</th>
+                    <th style="text-align: center;">Trạng Thái</th>
+                    <th style="width: 140px; text-align: center;">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="table-user-body">
+                  <tr>
+                    <td colspan="7" class="text-center text-muted">Đang tải danh sách tài khoản...</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- PANEL: QUẢN LÝ MƯỢN TRẢ SÁCH -->
       <div id="panel-borrows" class="page-panel">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="panel-header">
           <div>
-            <h2 class="fw-bold page-title m-0">📑 Quản Lý Mượn Trả Sách</h2>
-            <p class="m-0" id="mute">
-              Lập phiếu mượn mới, gia hạn thời gian và xử lý trả sách
-            </p>
+            <h2 class="page-title">📑 Quản Lý Mượn Trả Sách</h2>
+            <p class="page-subtitle">Lập phiếu mượn mới, gia hạn thời gian và xử lý trả sách</p>
           </div>
-          <button
-            class="btn btn-primary px-4 fw-semibold"
-            id="btn-refresh-borrows"
-          >
-            <i class="fa-solid fa-rotate me-2"></i> Làm Mới Dữ Liệu
+          <button class="btn btn-primary" id="btn-refresh-borrows">
+            <i class="fa-solid fa-rotate"></i> Làm Mới Dữ Liệu
           </button>
         </div>
 
-        <div class="row">
-          <div class="col-xl-4 mb-4" id="borrow-form-col">
-            <div class="card-table" id="add-borrow-section">
-              <h5 class="fw-bold text-dark mb-4" id="borrow-form-title">
-                <i class="fa-solid fa-file-invoice text-success me-2"></i>Tạo
-                Phiếu Mượn Mới
-              </h5>
-              <form id="form-add-borrow">
-                <input type="hidden" id="borrow-id" />
-
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Tài Khoản Độc Giả (ID hoặc Username)</label
-                  >
-                  <input
-                    type="text"
-                    id="borrow-user-id"
-                    class="form-control"
-                    placeholder="Nhập ID tài khoản người mượn"
-                    required
-                  />
+        <div class="content-layout">
+          <div class="form-container" id="add-borrow-section">
+            <h5 class="form-title" id="borrow-form-title">
+              <i class="fa-solid fa-file-invoice text-success"></i> Tạo Phiếu Mượn Mới
+            </h5>
+            <form id="form-add-borrow">
+              <input type="hidden" id="borrow-id" />
+              <div class="form-group">
+                <label>ID Độc Giả</label>
+                <input type="text" id="borrow-user-id" placeholder="Nhập ID tài khoản người mượn" required />
+              </div>
+              <div class="form-group">
+                <label>Chọn Sách Mượn</label>
+                <select id="borrow-book-id" required>
+                  <option value="" disabled selected>-- Chọn cuốn sách --</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Số Lượng Mượn</label>
+                <input type="number" id="borrow-quantity" min="1" value="1" required />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Ngày Mượn</label>
+                  <input type="date" id="borrow-date" required />
                 </div>
-
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Chọn Sách Mượn</label
-                  >
-                  <select id="borrow-book-id" class="form-select" required>
-                    <option value="" disabled selected>
-                      -- Chọn cuốn sách --
-                    </option>
-                  </select>
+                <div class="form-group">
+                  <label>Hạn Trả (Dự Kiến)</label>
+                  <input type="date" id="borrow-due-date" required />
                 </div>
-
-                <div class="mb-3">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Số Lượng Mượn</label
-                  >
-                  <input
-                    type="number"
-                    id="borrow-quantity"
-                    class="form-control"
-                    min="1"
-                    value="1"
-                    required
-                  />
-                </div>
-
-                <div class="row">
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Ngày Mượn</label
-                    >
-                    <input
-                      type="date"
-                      id="borrow-date"
-                      class="form-control"
-                      required
-                    />
-                  </div>
-                  <div class="col-6 mb-3">
-                    <label class="form-label small fw-bold text-secondary"
-                      >Hạn Trả (Dự Kiến)</label
-                    >
-                    <input
-                      type="date"
-                      id="borrow-due-date"
-                      class="form-control"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div class="mb-3 d-none" id="container-borrow-status">
-                  <label class="form-label small fw-bold text-secondary"
-                    >Trạng Thái Phiếu</label
-                  >
-                  <select id="borrow-status" class="form-select">
-                    <option value="BORROWING">ĐANG MƯỢN</option>
-                    <option value="RETURNED">ĐÃ TRẢ SÁCH</option>
-                  </select>
-                </div>
-
-                <div id="borrow-form-buttons" class="d-flex gap-2">
-                  <button
-                    type="submit"
-                    class="btn btn-success flex-grow-1 fw-bold py-2 mt-2"
-                    id="btn-submit-borrow"
-                  >
-                    <i class="fa-solid fa-floppy-disk me-2"></i>Lập Phiếu Mượn
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-secondary py-2 mt-2 d-none"
-                    id="btn-cancel-borrow"
-                  >
-                    Hủy
-                  </button>
-                </div>
-              </form>
-            </div>
+              </div>
+              <div class="form-group d-none" id="container-borrow-status">
+                <label>Trạng Thái Phiếu</label>
+                <select id="borrow-status">
+                  <option value="BORROWING">ĐANG MƯỢN</option>
+                  <option value="RETURNED">ĐÃ TRẢ SÁCH</option>
+                </select>
+              </div>
+              <div id="borrow-form-buttons">
+                <button type="submit" class="btn btn-success w-100" id="btn-submit-borrow">
+                  <i class="fa-solid fa-floppy-disk"></i> Lập Phiếu Mượn
+                </button>
+              </div>
+            </form>
           </div>
 
-          <div class="col-xl-8 mb-4" id="borrow-table-col">
-            <div class="card-table">
-              <h5 class="fw-bold text-dark mb-4">
-                <i class="fa-solid fa-rectangle-list text-primary me-2"></i>Nhật
-                Ký Mượn Trả Toàn Hệ Thống
-              </h5>
-              <div class="input-group mb-3" style="width: 350px">
-                <span class="input-group-text">
-                  <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
-                <input
-                  type="text"
-                  id="searchBorrow"
-                  class="form-control"
-                  placeholder="Tìm mã phiếu, username, tên sách..."
-                />
+          <div class="table-container" id="borrow-table-col">
+            <div class="table-header">
+              <h5 class="table-title"><i class="fa-solid fa-rectangle-list text-primary"></i> Nhật Ký Mượn Trả</h5>
+              <div class="search-box">
+                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <input type="text" id="searchBorrow" placeholder="Tìm username, tên sách..." />
               </div>
-
-              <div class="table-responsive">
-                <table class="table table-hover align-middle m-0">
-                  <thead class="table-light">
-                    <tr>
-                      <th class="text-center" style="width: 80px">Mã Phiếu</th>
-                      <th class="text-center" style="width: 80px">Mã CT</th>
-                      <th>Thông Tin Độc Giả</th>
-                      <th>Sách & Số Lượng</th>
-                      <th>Thời Gian Mượn</th>
-                      <th>Nhật Ký Trả / Phạt</th>
-                      <th class="text-center" style="width: 130px">
-                        Trạng Thái
-                      </th>
-                      <th
-                        class="text-center"
-                        id="borrow-action-header"
-                        style="width: 140px"
-                      >
-                        Hành động
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="table-borrow-body">
-                    <tr>
-                      <td colspan="8" class="text-center py-4 text-muted">
-                        <div
-                          class="spinner-border spinner-border-sm text-primary me-2"
-                        ></div>
-                        Đang quét sổ nhật ký mượn trả...
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+            </div>
+            <div class="responsive-table">
+              <table style="font-size: 13px;">
+                <thead>
+                  <tr>
+                    <th style="text-align: center;">Mã Phiếu</th>
+                    <th style="text-align: center;">Mã CT</th>
+                    <th>Thông Tin Độc Giả</th>
+                    <th>Sách & SL</th>
+                    <th>Thời Gian</th>
+                    <th>Trả / Phạt</th>
+                    <th style="text-align: center;">Trạng Thái</th>
+                    <th id="borrow-action-header" style="text-align: center;">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="table-borrow-body">
+                  <tr>
+                    <td colspan="8" class="text-center text-muted">Đang quét sổ nhật ký mượn trả...</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- PANEL: TÀI KHOẢN CÁ NHÂN -->
       <div id="panel-profile" class="page-panel">
         <div class="profile-card">
-    
-            <div class="avatar">
-                👤
+            <div class="avatar">👤</div>
+            <h2 id="profile-fullname" class="profile-name">---</h2>
+            <span id="profile-role" class="badge-role">MEMBER</span>
+            <div class="profile-info-list">
+              <div class="info-item"><span class="label">ID:</span><span id="profile-id">--</span></div>
+              <div class="info-item"><span class="label">Username:</span><span id="profile-username">--</span></div>
+              <div class="info-item"><span class="label">Email:</span><span id="profile-email">--</span></div>
+              <div class="info-item"><span class="label">Trạng thái:</span><span id="profile-status" class="status-active">--</span></div>
             </div>
-    
-            <h2 id="profile-fullname">Nguyễn Văn A</h2>
-            <p id="profile-role">ADMIN</p>
-    
-            <div class="info-item">
-                <span class="label">ID:</span>
-                <span id="profile-id"></span>
-            </div>
-    
-            <div class="info-item">
-                <span class="label">Username:</span>
-                <span id="profile-username"></span>
-            </div>
-    
-            <div class="info-item">
-                <span class="label">Email:</span>
-                <span id="profile-email"></span>
-            </div>
-    
-            <div class="info-item">
-                <span class="label">Trạng thái:</span>
-                <span id="profile-status"></span>
-            </div>
-    
         </div>
-    </div>
-    </div>
-    <div
-      id="login-container"
-      class="d-flex align-items-center justify-content-center vh-100 bg-light"
-      style="position: fixed; top: 0; left: 0; width: 100%; z-index: 9999"
-    >
-      <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px">
-        <div class="text-center mb-4">
-          <i class="fa-solid fa-book-open-reader text-primary fa-3x mb-2"></i>
-          <h3 class="fw-bold text-dark">HỆ THỐNG THƯ VIỆN</h3>
-          <p class="text-muted small">Vui lòng đăng nhập tài khoản hệ thống</p>
-        </div>
+      </div>
 
+    </div>
+
+    <!-- BOX CONTAINER ĐĂNG NHẬP CHẶN TOÀN MÀN HÌNH -->
+    <div id="login-container" class="login-screen">
+      <div class="login-box">
+        <div class="login-header">
+          <i class="fa-solid fa-book-open-reader text-primary fa-3x"></i>
+          <h3>HỆ THỐNG THƯ VIỆN</h3>
+          <p>Vui lòng đăng nhập tài khoản hệ thống</p>
+        </div>
         <form id="form-login">
-          <div class="mb-3">
-            <label class="form-label fw-semibold"
-              ><i class="fa-solid fa-user me-2 text-secondary"></i>Tài
-              khoản</label
-            >
-            <input
-              type="text"
-              id="login-username"
-              class="form-control form-control-lg"
-              placeholder="Nhập tên đăng nhập..."
-              required
-            />
+          <div class="form-group">
+            <label><i class="fa-solid fa-user text-secondary"></i> Tài khoản</label>
+            <input type="text" id="login-username" placeholder="Nhập tên đăng nhập..." required />
           </div>
-
-          <div class="mb-4">
-            <label class="form-label fw-semibold"
-              ><i class="fa-solid fa-lock me-2 text-secondary"></i>Mật
-              khẩu</label
-            >
-            <input
-              type="password"
-              id="login-password"
-              class="form-control form-control-lg"
-              placeholder="Nhập mật khẩu..."
-              required
-            />
+          <div class="form-group">
+            <label><i class="fa-solid fa-lock text-secondary"></i> Mật khẩu</label>
+            <input type="password" id="login-password" placeholder="Nhập mật khẩu..." required />
           </div>
-
-          <div
-            id="login-error-msg"
-            class="alert alert-danger d-none small py-2 mb-3"
-          ></div>
-
-          <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">
-            <i class="fa-solid fa-right-to-bracket me-2"></i>
-            ĐĂNG NHẬP
-        </button>
-        
-        <div class="text-center mt-4">
-            <a href="register.html" class="text-decoration-none">
-                <i class="fa-solid fa-user-plus me-1"></i>
-                Đăng ký tài khoản
-            </a>
-        
-            <span class="mx-2 text-muted">|</span>
-        
-            <a href="forgot-password.html" class="text-decoration-none">
-                <i class="fa-solid fa-key me-1"></i>
-                Quên mật khẩu?
-            </a>
-        </div>
+          <div id="login-error-msg" class="alert-danger d-none"></div>
+          <button type="submit" class="btn btn-primary w-100 btn-lg">
+            <i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP
+          </button>
+          <div class="login-footer">
+              <a href="register.html">Đăng ký</a>
+              <span class="divider">|</span>
+              <a href="forgot-password.html">Quên mật khẩu?</a>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="app.js"></script>
+ <script src="app.js"></script>
   </body>
 </html>

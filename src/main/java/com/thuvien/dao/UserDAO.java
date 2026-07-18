@@ -28,7 +28,7 @@ public class UserDAO {
                 userDto.setFullname(rs.getString("full_name"));
                 userDto.setEmail(rs.getString("email"));
                 userDto.setRole(rs.getString("role"));
-                userDto.setStatus(rs.getInt("status"));
+                userDto.setStatus(rs.getBoolean("status"));
                 list.add(userDto);
             }
          } catch (Exception e) {
@@ -54,7 +54,7 @@ public class UserDAO {
          psAccount.setString(1, user.getUsername());
          psAccount.setString(2, user.getPassword());
          psAccount.setString(3, user.getRole());
-         psAccount.setInt(4, user.getStatus());
+         psAccount.setBoolean(4, user.getStatus());
          psAccount.setInt(5, userId);
          psAccount.executeUpdate();
          con.commit();
@@ -79,7 +79,7 @@ public class UserDAO {
             psAccount.setString(1, user.getUsername());
             psAccount.setString(2, user.getPassword());
             psAccount.setString(3, user.getRole());
-            psAccount.setInt(4, user.getStatus());
+            psAccount.setBoolean(4, user.getStatus());
             psAccount.setInt(5, user.getId());
             psAccount.executeUpdate();
             con.commit();
@@ -122,7 +122,7 @@ public class UserDAO {
                 user.setFullname(rs.getString("full_name"));
                 user.setEmail(rs.getString("email"));
                 user.setRole(rs.getString("role"));
-                user.setStatus(rs.getInt("status"));
+                user.setStatus(rs.getBoolean("status"));
                 list.add(user);
             }
          }catch(SQLException e){

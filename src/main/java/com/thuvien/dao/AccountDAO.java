@@ -7,7 +7,7 @@ import com.thuvien.entity.Account;
 
 public class AccountDAO {
     public Account login(String username, String password){
-        String sql="SELECT * FROM accounts WHERE username=? AND password=? AND status=1";
+        String sql="SELECT * FROM accounts WHERE username=? AND password=? AND status=true";
         try(Connection con =DatabaseConnection.getConnection();
            PreparedStatement psLogin=con.prepareStatement(sql)){
             psLogin.setString(1, username);
@@ -19,7 +19,7 @@ public class AccountDAO {
                 account.setUsername(rs.getString("username"));
                 account.setPassword(rs.getString("password"));
                 account.setRole(rs.getString("role"));
-                account.setStatus(rs.getInt("status"));
+                account.setStatus(rs.getBoolean("status"));
                 int uId=rs.getInt("user_id");
                 account.setUserId(rs.wasNull()?null :uId);
                 return account;
@@ -40,7 +40,7 @@ public class AccountDAO {
                 account.setPassword(rs.getString("password"));
                 account.setUsername(rs.getString("username"));
                 account.setRole(rs.getString("role"));
-                account.setStatus(rs.getInt("status"));
+                account.setStatus(rs.getBoolean("status"));
                 account.setUserId(rs.getInt("user_id"));
                 return account;
             }

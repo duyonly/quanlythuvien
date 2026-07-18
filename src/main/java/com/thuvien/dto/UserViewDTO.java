@@ -7,7 +7,7 @@ public class UserViewDTO {
     private String fullname;
     private String email;
     private String role;
-    private int status;
+    private boolean status;
     public UserViewDTO(){}
     public int getId() {
         return id;
@@ -39,10 +39,10 @@ public class UserViewDTO {
     public void setRole(String role) {
         this.role = role;
     }
-    public int getStatus() {
+    public boolean getStatus() {
         return status;
     }
-    public void setStatus(int status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
     public String getPassword() {
